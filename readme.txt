@@ -43,5 +43,22 @@ API Request
 	respon:
 		json: "SO2" => 500
 		
+// get aqm_data :
+	link = http://localhost/ispumapapi/api/aqmdata
+	key = api_trusur_key : VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA==
+	authorization = username : admin, password : cHQudHJ1c3VydW5nZ3VsdGVrbnVzYQ==
+	
+// get aqm_ispu :
+	link = http://localhost/ispumapapi/api/aqmispu
+	key = api_trusur_key : VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA==
+	authorization = username : admin, password : cHQudHJ1c3VydW5nZ3VsdGVrbnVzYQ==
+	
+// get aqm_stasiun :
+	link = http://localhost/ispumapapi/api/aqmstasiun
+	key = api_trusur_key : VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA==
+	authorization = username : admin, password : cHQudHJ1c3VydW5nZ3VsdGVrbnVzYQ==
+	
+	
+		
 		
 	
