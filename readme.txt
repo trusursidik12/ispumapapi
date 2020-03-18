@@ -58,7 +58,7 @@ API Request
 	key = api_trusur_key : VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA==
 	authorization = username : admin, password : cHQudHJ1c3VydW5nZ3VsdGVrbnVzYQ==
 	
-// get aqm_province : by id_group
+// get aqm_province : by provinsi
 	link = http://localhost/ispumapapi/api/aqmprovince
 	key = api_trusur_key : VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA==
 	authorization = username : admin, password : cHQudHJ1c3VydW5nZ3VsdGVrbnVzYQ==

@@ -86,12 +86,12 @@ class Api extends RestController {
 	public function aqmProvince_get()
 	{
 
-		$id = $this->get('id_group');
+		$id = $this->get('provinsi');
 
 		if ($id === null) {
-			$data = $this->aqmmaster_m->get_province();
+			$data = $this->aqmmaster_m->get_aqm_province();
 		} else {
-			$data = $this->aqmmaster_m->get_province($id);			
+			$data = $this->aqmmaster_m->get_aqm_province($id);		
 		}
 
 		if ($data) {
