@@ -38,17 +38,6 @@ class Aqmmaster_m extends CI_Model
 		return $query->row_array();
 	}
 
-	// public function get_province($id = FALSE)
-	// {
-	// 	if($id === FALSE){
-	// 		$this->db->join('aqm_stasiun', 'aqm_stasiun.id_stasiun = indoor_groups.id_stasiun');
-	// 		$query = $this->db->get('indoor_groups');
-	// 		return $query->result_array();
-	// 	}
-	// 	$query = $this->db->get_where('indoor_groups', array('id_group' => $id));
-	// 	return $query->row_array();
-	// }
-
 	public function get_aqm_province($id = FALSE)
 	{
 		if($id === FALSE){
@@ -85,5 +74,18 @@ class Aqmmaster_m extends CI_Model
 		$this->db->where("'$ispu' BETWEEN ispu_a AND ispu_b");
 		$query = $this->db->get("categories");
 		return $query->row_array()["effect"];
+	}
+
+	public function get_aqm_province_list($id = FALSE)
+	{
+		if($id === FALSE){
+			$this->db->select('DISTINCT(provinsi), id_stasiun, nama, lat, lon, alamat, kota, geojson, use_internet, dbsource, old_id, xtimetimes');
+			$this->db->group_by('provinsi'); 
+			$this->db->order_by('provinsi', 'ASC');
+			$query = $this->db->get('aqm_stasiun');
+			return $query->result_array();
+		}
+		$query = $this->db->get_where('aqm_stasiun', array('provinsi' => $id));
+		return $query->result_array();
 	}
 }
