@@ -30,24 +30,13 @@ class Aqmmaster_m extends CI_Model
 	public function get_aqm_stasiun($id = FALSE)
 	{
 		if($id === FALSE){
-			$this->db->order_by('id', 'DESC');
+			$this->db->order_by('id', 'ASC');
 			$query = $this->db->get('aqm_stasiun');
 			return $query->result_array();
 		}
-		$query = $this->db->get_where('aqm_stasiun', array('id' => $id));
+		$query = $this->db->get_where('aqm_stasiun', array('id_stasiun' => $id));
 		return $query->row_array();
 	}
-
-	// public function get_province($id = FALSE)
-	// {
-	// 	if($id === FALSE){
-	// 		$this->db->join('aqm_stasiun', 'aqm_stasiun.id_stasiun = indoor_groups.id_stasiun');
-	// 		$query = $this->db->get('indoor_groups');
-	// 		return $query->result_array();
-	// 	}
-	// 	$query = $this->db->get_where('indoor_groups', array('id_group' => $id));
-	// 	return $query->row_array();
-	// }
 
 	public function get_aqm_province($id = FALSE)
 	{
@@ -59,4 +48,23 @@ class Aqmmaster_m extends CI_Model
 		$query = $this->db->get_where('aqm_stasiun', array('provinsi' => $id));
 		return $query->result_array();
 	}
+
+	public function get_aqm_province_list($id = FALSE)
+	{
+		if($id === FALSE){
+			$this->db->select('DISTINCT(provinsi), id_stasiun, nama, lat, lon, alamat, kota, geojson, use_internet, dbsource, old_id, xtimetimes');
+			$this->db->group_by('provinsi'); 
+			$this->db->order_by('provinsi', 'ASC');
+			$query = $this->db->get('aqm_stasiun');
+			return $query->result_array();
+		}
+		$query = $this->db->get_where('aqm_stasiun', array('provinsi' => $id));
+		return $query->result_array();
+	}
+
+	// public function get_higestdata()
+	// {
+	// 	$query = $this->db->query("SELECT greatest(max(so2),max(co),max(o3),max(no2),max(hc),max(voc),max(nh3)) FROM aqm_data");
+	// 	return $query->result();
+	// }
 }

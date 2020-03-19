@@ -62,7 +62,7 @@ class Api extends RestController {
 	public function aqmStasiun_get()
 	{
 
-		$id = $this->get('id');
+		$id = $this->get('id_stasiun');
 
 		if ($id === null) {
 			$data = $this->aqmmaster_m->get_aqm_stasiun();
@@ -92,6 +92,30 @@ class Api extends RestController {
 			$data = $this->aqmmaster_m->get_aqm_province();
 		} else {
 			$data = $this->aqmmaster_m->get_aqm_province($id);		
+		}
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmProvinceList_get()
+	{
+
+		$id = $this->get('provinsi');
+
+		if ($id === null) {
+			$data = $this->aqmmaster_m->get_aqm_province_list();
+		} else {
+			$data = $this->aqmmaster_m->get_aqm_province_list($id);		
 		}
 
 		if ($data) {
