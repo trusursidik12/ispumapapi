@@ -117,7 +117,7 @@ class Api extends RestController {
 				$ispu[$id_stasiun]["worst_param"] = $_worst_param;
 				$ispu[$id_stasiun]["category"] = $category = $this->aqmmaster_m->get_category($_worst_ispu);
 				$ispu[$id_stasiun]["effect"] = $category = $this->aqmmaster_m->get_effect($_worst_ispu,$_worst_param);
-				$latlng = $category = $this->aqmmaster_m->get_LatLng($id_stasiun);
+				$latlng = $category = $this->aqmmaster_m->get_LatLng($stasiun["id_stasiun"]);
 				$ispu[$id_stasiun]["lat"] = $latlng["lat"];
 				$ispu[$id_stasiun]["lng"] = $latlng["lng"];
 				
