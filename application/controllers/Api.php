@@ -105,12 +105,12 @@ class Api extends RestController {
 			$worst_stasiun_id = "";
 			$ispu = $this->aqmmaster_m->get_ispu($id_stasiuns);
 			foreach($ispu as $id_stasiun => $stasiun){
-				if($stasiun["pm25"] < 300 && $worst_ispu < $stasiun["pm25"]){ $worst_ispu = $stasiun["pm25"]; $worst_param = "pm25"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
-				if($stasiun["pm10"] < 300 && $worst_ispu < $stasiun["pm10"]){ $worst_ispu = $stasiun["pm10"]; $worst_param = "pm10"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
-				if($stasiun["so2"] < 300 && $worst_ispu < $stasiun["so2"]){ $worst_ispu = $stasiun["so2"]; $worst_param = "so2"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
-				if($stasiun["co"] < 300 && $worst_ispu < $stasiun["co"]){ $worst_ispu = $stasiun["co"]; $worst_param = "co"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
-				if($stasiun["o3"] < 300 && $worst_ispu < $stasiun["o3"]){ $worst_ispu = $stasiun["o3"]; $worst_param = "o3"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
-				if($stasiun["no2"] < 300 && $worst_ispu < $stasiun["no2"]){ $worst_ispu = $stasiun["no2"]; $worst_param = "no2"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
+				if($stasiun["pm25"] < 500 && $worst_ispu < $stasiun["pm25"]){ $worst_ispu = $stasiun["pm25"]; $worst_param = "pm25"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
+				if($stasiun["pm10"] < 500 && $worst_ispu < $stasiun["pm10"]){ $worst_ispu = $stasiun["pm10"]; $worst_param = "pm10"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
+				if($stasiun["so2"] < 500 && $worst_ispu < $stasiun["so2"]){ $worst_ispu = $stasiun["so2"]; $worst_param = "so2"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
+				if($stasiun["co"] < 500 && $worst_ispu < $stasiun["co"]){ $worst_ispu = $stasiun["co"]; $worst_param = "co"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
+				if($stasiun["o3"] < 500 && $worst_ispu < $stasiun["o3"]){ $worst_ispu = $stasiun["o3"]; $worst_param = "o3"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
+				if($stasiun["no2"] < 500 && $worst_ispu < $stasiun["no2"]){ $worst_ispu = $stasiun["no2"]; $worst_param = "no2"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
 			}
 			
 			$category = $this->aqmmaster_m->get_category($worst_ispu);
