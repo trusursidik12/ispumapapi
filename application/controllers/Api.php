@@ -105,6 +105,22 @@ class Api extends RestController {
 			$worst_stasiun_id = "";
 			$ispu = $this->aqmmaster_m->get_ispu($id_stasiuns);
 			foreach($ispu as $id_stasiun => $stasiun){
+				$_worst_ispu = 0;
+				$_worst_param = "";
+				if($stasiun["pm25"] < 500 && $_worst_ispu < $stasiun["pm25"]){ $_worst_ispu = $stasiun["pm25"]; $_worst_param = "pm25"; }
+				if($stasiun["pm10"] < 500 && $_worst_ispu < $stasiun["pm10"]){ $_worst_ispu = $stasiun["pm10"]; $_worst_param = "pm10"; }
+				if($stasiun["so2"] < 500 && $_worst_ispu < $stasiun["so2"]){ $_worst_ispu = $stasiun["so2"]; $_worst_param = "so2"; }
+				if($stasiun["co"] < 500 && $_worst_ispu < $stasiun["co"]){ $_worst_ispu = $stasiun["co"]; $_worst_param = "co"; }
+				if($stasiun["o3"] < 500 && $_worst_ispu < $stasiun["o3"]){ $_worst_ispu = $stasiun["o3"]; $_worst_param = "o3"; }
+				if($stasiun["no2"] < 500 && $_worst_ispu < $stasiun["no2"]){ $_worst_ispu = $stasiun["no2"]; $_worst_param = "no2"; }
+				$ispu[$id_stasiun]["worst_ispu"] = $_worst_ispu;
+				$ispu[$id_stasiun]["worst_param"] = $_worst_param;
+				$ispu[$id_stasiun]["category"] = $category = $this->aqmmaster_m->get_category($_worst_ispu);
+				$ispu[$id_stasiun]["effect"] = $category = $this->aqmmaster_m->get_effect($_worst_ispu,$_worst_param);
+				$latlng = $category = $this->aqmmaster_m->get_LatLng($id_stasiun);
+				$ispu[$id_stasiun]["lat"] = $latlng["lat"];
+				$ispu[$id_stasiun]["lng"] = $latlng["lng"];
+				
 				if($stasiun["pm25"] < 500 && $worst_ispu < $stasiun["pm25"]){ $worst_ispu = $stasiun["pm25"]; $worst_param = "pm25"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
 				if($stasiun["pm10"] < 500 && $worst_ispu < $stasiun["pm10"]){ $worst_ispu = $stasiun["pm10"]; $worst_param = "pm10"; $worst_stasiun_id = $stasiun["id_stasiun"]; }
 				if($stasiun["so2"] < 500 && $worst_ispu < $stasiun["so2"]){ $worst_ispu = $stasiun["so2"]; $worst_param = "so2"; $worst_stasiun_id = $stasiun["id_stasiun"]; }

@@ -75,6 +75,13 @@ class Aqmmaster_m extends CI_Model
 		$query = $this->db->get("categories");
 		return $query->row_array()["effect"];
 	}
+	
+	public function get_LatLng($id_stasiun){
+		$this->db->where("id_stasiun",$id_stasiun);
+		$query = $this->db->get("aqm_stasiun");
+		$result = $query->row_array();
+		return ["lat" => $result["lat"],"lng" => $result["lon"]];
+	}
 
 	public function get_aqm_province_list($id = FALSE)
 	{
