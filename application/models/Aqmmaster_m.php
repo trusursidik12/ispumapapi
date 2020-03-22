@@ -51,11 +51,7 @@ class Aqmmaster_m extends CI_Model
 
 	public function get_ispu($id_stasiuns)
 	{
-		if(date("H") * 1 < 15)
-			$waktu = date("Y-m-d",mktime(0,0,0,date("m"),date("d")-1));
-		else
-			$waktu = date("Y-m-d",mktime(0,0,0,date("m"),date("d")));
-		
+		$waktu = $this->db->select('waktu')->order_by('waktu',"desc")->limit(1)->get('aqm_ispu')->row()->waktu;
 		$this->db->where_in('id_stasiun', $id_stasiuns);
 		$this->db->like('waktu', $waktu, 'after'); 
 		$query = $this->db->get("aqm_ispu");
