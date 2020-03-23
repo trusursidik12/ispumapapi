@@ -6,12 +6,13 @@ class Aqmmaster_m extends CI_Model
 	public function get_aqm_data($id = FALSE)
 	{
 		if($id === FALSE){
+			$this->db->select('DISTINCT(id_stasiun), MAX(id) as id, pm10, pm25, so2, co, o3, no2, hc, voc, nh3, ws, wd, humidity, temperature, pressure, sr, rain_intensity');
+			$this->db->group_by('id_stasiun'); 
 			$this->db->order_by('id', 'DESC');
-			$this->db->limit('1');
 			$query = $this->db->get('aqm_data');
 			return $query->result_array();
 		}
-		$query = $this->db->get_where('aqm_data', array('id' => $id));
+		$query = $this->db->get_where('aqm_data', array('id_stasiun' => $id));
 		return $query->row_array();
 	}
 
