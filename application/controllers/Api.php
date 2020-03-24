@@ -38,7 +38,7 @@ class Api extends RestController {
 	public function aqmIspu_get()
 	{
 
-		$id = $this->get('id');
+		$id = $this->get('id_stasiun');
 
 		if ($id === null) {
 			$data = $this->aqmmaster_m->get_aqm_ispu();
