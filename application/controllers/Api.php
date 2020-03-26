@@ -195,5 +195,55 @@ class Api extends RestController {
                 ], 404);
 		}
 	}
-
+	public function aqmDetailStasiun_get()
+	{
+		$stasiuns = $this->aqmmaster_m->get_stasiun_id_by_latlng(["lat" => $this->get('lat'),"lon" => $this->get('lon')]);
+		if ($stasiuns["id_stasiun"]) {
+			$id_stasiuns[] = $stasiuns["id_stasiun"];
+			$ispu = $this->aqmmaster_m->get_ispu($id_stasiuns)[0];
+			$last_aqm_data = $this->aqmmaster_m->get_last_aqm_data($stasiuns["id_stasiun"]);
+			
+			$worst_ispu = 0;
+			if($ispu["pm25"] < 500 && $worst_ispu < $ispu["pm25"]){ $worst_ispu = $ispu["pm25"];}
+			if($ispu["pm10"] < 500 && $worst_ispu < $ispu["pm10"]){ $worst_ispu = $ispu["pm10"];}
+			if($ispu["so2"] < 500 && $worst_ispu < $ispu["so2"]){ $worst_ispu = $ispu["so2"];}
+			if($ispu["co"] < 500 && $worst_ispu < $ispu["co"]){ $worst_ispu = $ispu["co"];}
+			if($ispu["o3"] < 500 && $worst_ispu < $ispu["o3"]){ $worst_ispu = $ispu["o3"];}
+			if($ispu["no2"] < 500 && $worst_ispu < $ispu["no2"]){ $worst_ispu = $ispu["no2"];}
+			
+			if($worst_ispu <= 50) $category = "BAIK";
+			else if($worst_ispu <= 100) $category = "SEDANG";
+			else if($worst_ispu <= 199) $category = "TIDAK SEHAT";
+			else if($worst_ispu <= 299) $category = "SANGAT TIDAK SEHAT";
+			else $category = "BERBAHAYA";
+			
+			
+			$this->response([
+                    'status' 			=> true,
+                    'request_id'		=> @$_GET["request_id"] * 1,
+                    'category'			=> $category,
+					'stasiun_name'		=> $stasiuns["nama"] . " - " . $stasiuns["id_stasiun"],
+					'city'				=> $stasiuns["kota"],
+					'province'			=> $stasiuns["provinsi"],
+					'pm25'				=> $ispu["pm25"],
+					'pm10'				=> $ispu["pm10"],
+					'so2'				=> $ispu["so2"],
+					'co'				=> $ispu["co"],
+					'o3'				=> $ispu["o3"],
+					'no2'				=> $ispu["no2"],
+					'pressure'			=> round($last_aqm_data["pressure"],1),
+					'temperature'		=> round($last_aqm_data["temperature"],1),
+					'wind_direction'	=> round($last_aqm_data["wd"],0),
+					'wind_speed'		=> round($last_aqm_data["ws"],0),
+					'humidity'			=> round($last_aqm_data["humidity"],0),
+					'rain_rate'			=> round($last_aqm_data["rain_intensity"],1),
+					'solar_radiation'	=> round($last_aqm_data["sr"],0)
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
 }

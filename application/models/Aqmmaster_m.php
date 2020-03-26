@@ -93,4 +93,15 @@ class Aqmmaster_m extends CI_Model
 		$query = $this->db->get_where('aqm_stasiun', array('provinsi' => $id));
 		return $query->result_array();
 	}
+
+	public function get_last_aqm_data($id_stasiun){
+		$this->db->order_by('waktu', 'DESC');
+		$query = $this->db->get_where('aqm_data', ["id_stasiun" => $id_stasiun]);
+		return $query->row_array();
+	}
+	
+	public function get_stasiun_id_by_latlng($latlng){
+		$query = $this->db->get_where('aqm_stasiun', $latlng);
+		return $query->row_array();
+	}
 }
