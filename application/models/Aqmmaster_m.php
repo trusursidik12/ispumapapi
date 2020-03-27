@@ -112,7 +112,7 @@ class Aqmmaster_m extends CI_Model
 			$query = $this->db->get('news');
 			return $query->result_array();
 		}
-		$query = $this->db->get_where('news', array('id' => $id));
+		$query = $this->db->get_where('news', array('slug' => $id));
 		return $query->row_array();
 	}
 }

@@ -252,7 +252,7 @@ class Api extends RestController {
 	public function aqmNews_get()
 	{
 
-		$id = $this->get('id');
+		$id = $this->get('slug');
 
 		if ($id === null) {
 			$data = $this->aqmmaster_m->get_aqm_news();
