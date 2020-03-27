@@ -246,4 +246,30 @@ class Api extends RestController {
                 ], 404);
 		}
 	}
+
+
+
+	public function aqmNews_get()
+	{
+
+		$id = $this->get('id');
+
+		if ($id === null) {
+			$data = $this->aqmmaster_m->get_aqm_news();
+		} else {
+			$data = $this->aqmmaster_m->get_aqm_news($id);			
+		}
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
 }

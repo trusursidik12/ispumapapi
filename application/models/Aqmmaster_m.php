@@ -104,4 +104,15 @@ class Aqmmaster_m extends CI_Model
 		$query = $this->db->get_where('aqm_stasiun', $latlng);
 		return $query->row_array();
 	}
+
+	public function get_aqm_news($id = FALSE)
+	{
+		if($id === FALSE){
+			$this->db->order_by('id', 'DESC');
+			$query = $this->db->get('news');
+			return $query->result_array();
+		}
+		$query = $this->db->get_where('news', array('id' => $id));
+		return $query->row_array();
+	}
 }
