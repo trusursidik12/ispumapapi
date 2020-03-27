@@ -126,4 +126,15 @@ class Aqmmaster_m extends CI_Model
 		$query = $this->db->get_where('about', array('slug' => $id));
 		return $query->row_array();
 	}
+
+	public function get_aqm_faqs($id = FALSE)
+	{
+		if($id === FALSE){
+			$this->db->order_by('id', 'DESC');
+			$query = $this->db->get('faqs');
+			return $query->result_array();
+		}
+		$query = $this->db->get_where('faqs', array('slug' => $id));
+		return $query->row_array();
+	}
 }
