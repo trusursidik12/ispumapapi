@@ -137,4 +137,58 @@ class Aqmmaster_m extends CI_Model
 		$query = $this->db->get_where('faqs', array('slug' => $id));
 		return $query->row_array();
 	}
+
+	public function get_aqm_rank_pm10()
+	{
+		$this->db->select('pm10, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function get_aqm_rank_pm25()
+	{
+		$this->db->select('pm25, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function get_aqm_rank_so2()
+	{
+		$this->db->select('so2, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function get_aqm_rank_co()
+	{
+		$this->db->select('co, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function get_aqm_rank_o3()
+	{
+		$this->db->select('o3, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function get_aqm_rank_no2()
+	{
+		$this->db->select('no2, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 }

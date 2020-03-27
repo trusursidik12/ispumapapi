@@ -14,7 +14,7 @@ class Api extends RestController {
 	public function aqmData_get()
 	{
 
-		$id = $this->get('id');
+		$id = $this->get('id_stasiun');
 
 		if ($id === null) {
 			$data = $this->aqmmaster_m->get_aqm_data();
@@ -305,6 +305,108 @@ class Api extends RestController {
 		} else {
 			$data = $this->aqmmaster_m->get_aqm_faqs($id);			
 		}
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmRankPm10_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_pm10();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmRankPm25_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_pm25();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmRankSo2_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_so2();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmRankCo_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_co();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmRanko3_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_o3();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmRankNo2_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_no2();
 
 		if ($data) {
 			$this->response([
