@@ -105,6 +105,18 @@ class Aqmmaster_m extends CI_Model
 		return $query->row_array();
 	}
 
+	public function get_available_stasiuns(){
+		$this->db->group_by('id_stasiun'); 
+		$query = $this->db->get('aqm_ispu');
+		return $query->result_array();
+	}
+
+	public function get_stasiun_info($id_stasiun){
+		$this->db->where(["id_stasiun" => $id_stasiun]);
+		$query = $this->db->get('aqm_stasiun');
+		return $query->row_array();
+	}
+	
 	public function get_aqm_news($id = FALSE)
 	{
 		if($id === FALSE){
