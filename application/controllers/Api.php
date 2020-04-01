@@ -256,6 +256,7 @@ class Api extends RestController {
                 ], 404);
 		}
 	}
+	
 	public function aqmDetailStasiun_get()
 	{
 		$stasiuns = $this->aqmmaster_m->get_stasiun_id_by_latlng(["lat" => $this->get('lat'),"lon" => $this->get('lon')]);
@@ -286,6 +287,44 @@ class Api extends RestController {
 					'stasiun_name'		=> $stasiuns["nama"] . " - " . $stasiuns["id_stasiun"],
 					'city'				=> $stasiuns["kota"],
 					'province'			=> $stasiuns["provinsi"],
+					'pm25'				=> $ispu["pm25"],
+					'pm10'				=> $ispu["pm10"],
+					'so2'				=> $ispu["so2"],
+					'co'				=> $ispu["co"],
+					'o3'				=> $ispu["o3"],
+					'no2'				=> $ispu["no2"],
+					'pressure'			=> round($last_aqm_data["pressure"],1),
+					'temperature'		=> round($last_aqm_data["temperature"],1),
+					'wind_direction'	=> round($last_aqm_data["wd"],0),
+					'wind_speed'		=> round($last_aqm_data["ws"],0),
+					'humidity'			=> round($last_aqm_data["humidity"],0),
+					'rain_rate'			=> round($last_aqm_data["rain_intensity"],1),
+					'solar_radiation'	=> round($last_aqm_data["sr"],0)
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+	
+	public function aqmOutdoor_get(){
+		$id_stasiun = $this->get('id_stasiun');
+		$stasiun_info = $this->aqmmaster_m->get_stasiun_info($id_stasiun);
+		$last_aqm_data = $this->aqmmaster_m->get_last_aqm_data($id_stasiun);
+		$ispu = $this->aqmmaster_m->get_ispu([$id_stasiun])[0];
+				
+		if ($ispu) {
+			$this->response([
+                    'status' 			=> true,
+					'request_id'		=> @$_GET["request_id"] * 1,
+					'id_stasiun'		=> $id_stasiun,
+					'waktu'				=> $last_aqm_data["waktu"],
+					'datetime'			=> date("Y-m-d H:i:s"),
+					'stasiun_name'		=> $stasiun_info["nama"],
+					'city'				=> $stasiun_info["kota"],
+					'province'			=> $stasiun_info["provinsi"],
 					'pm25'				=> $ispu["pm25"],
 					'pm10'				=> $ispu["pm10"],
 					'so2'				=> $ispu["so2"],
