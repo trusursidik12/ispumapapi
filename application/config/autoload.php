@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('aqmmaster_m');
+$autoload['model'] = array('aqmmaster_m','news_m','faq_m','about_m');
