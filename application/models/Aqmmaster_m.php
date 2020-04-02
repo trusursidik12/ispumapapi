@@ -104,6 +104,36 @@ class Aqmmaster_m extends CI_Model
 		$query = $this->db->get_where('aqm_stasiun', $latlng);
 		return $query->row_array();
 	}
+	
+	public function get_closer_stasiun_id($lat,$lng){
+		$closer = 99999999999999999999;
+		$id_stasiun = "";
+		$this->db->select("id_stasiun,(lat - $lat) as lat_x, (lon - $lng) as lon_x, SQRT(POW((lat - $lat),2) + POW((lon - $lng),2)) as jarak");
+		$this->db->where("(lat - $lat) >= 0 AND (lon - $lng) >= 0");
+		$this->db->order_by("SQRT(POW((lat - $lat),2) + POW((lon - $lng),2))");
+		$result1 = $this->db->get('aqm_stasiun')->row_array();
+		if(@$result1["jarak"] < $closer && isset($result1["id_stasiun"])){ $id_stasiun = $result1["id_stasiun"]; $closer = @$result1["jarak"]; }
+		
+		$this->db->select("id_stasiun,($lat - lat) as lat_x, (lon - $lng) as lon_x, SQRT(POW(($lat - lat),2) + POW((lon - $lng),2)) as jarak");
+		$this->db->where("($lat - lat) >= 0 AND (lon - $lng) >= 0");
+		$this->db->order_by("SQRT(POW(($lat - lat),2) + POW((lon - $lng),2))");
+		$result2 = $this->db->get('aqm_stasiun')->row_array();
+		if(@$result2["jarak"] < $closer && isset($result2["id_stasiun"])){ $id_stasiun = $result2["id_stasiun"]; $closer = @$result2["jarak"]; }
+		
+		$this->db->select("id_stasiun,($lat - lat) as lat_x, ($lng - lon) as lon_x, SQRT(POW(($lat - lat),2) + POW(($lng - lon),2)) as jarak");
+		$this->db->where("($lat - lat) >= 0 AND ($lng - lon) >= 0");
+		$this->db->order_by("SQRT(POW(($lat - lat),2) + POW(($lng - lon),2))");
+		$result3 = $this->db->get('aqm_stasiun')->row_array();
+		if(@$result3["jarak"] < $closer && isset($result3["id_stasiun"])){ $id_stasiun = $result3["id_stasiun"]; $closer = @$result3["jarak"]; }
+		
+		$this->db->select("id_stasiun,(lat - $lat) as lat_x, ($lng - lon) as lon_x, SQRT(POW((lat - $lat),2) + POW(($lng - lon),2)) as jarak");
+		$this->db->where("(lat - $lat) >= 0 AND ($lng - lon) >= 0");
+		$this->db->order_by("SQRT(POW((lat - $lat),2) + POW(($lng - lon),2))");
+		$result4 = $this->db->get('aqm_stasiun')->row_array();
+		if(@$result4["jarak"] < $closer && isset($result4["id_stasiun"])){ $id_stasiun = $result4["id_stasiun"]; $closer = @$result4["jarak"]; }
+		
+		return [$id_stasiun,$closer,"data" => [$result1,$result2,$result3,$result4]];
+	}
 
 	public function get_available_stasiuns(){
 		$this->db->group_by('id_stasiun'); 

@@ -347,6 +347,15 @@ class Api extends RestController {
 		}
 	}
 
+	public function aqmCloserStasiun_get(){
+		$lat = $this->get('lat');
+		$lng = $this->get('lng');
+		$data = $this->aqmmaster_m->get_closer_stasiun_id($lat,$lng);
+		echo "<pre>";
+		print_r($data);
+		echo "</pre>";
+	}
+	
 	public function aqmNews_get()
 	{
 
