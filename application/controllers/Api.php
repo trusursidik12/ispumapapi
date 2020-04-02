@@ -149,8 +149,15 @@ class Api extends RestController {
 	}
 
 	public function aqmCitiesinfo_get(){
-		$stasiuns = $this->aqmmaster_m->get_available_stasiuns();
+		$lat = $this->get('lat');
+		$lng = $this->get('lng');
+		if($lat == "" && $lng == ""){
+			$stasiuns = $this->aqmmaster_m->get_available_stasiuns();
+		} else {
+			$stasiuns = $this->aqmmaster_m->get_available_stasiuns($lat,$lng);
+		}
 		$id_stasiuns = [];
+		
 		foreach($stasiuns as $stasiun){
 			$id_stasiuns[] = $stasiun["id_stasiun"];
 			$stasiun_info = $this->aqmmaster_m->get_stasiun_info($stasiun["id_stasiun"]);

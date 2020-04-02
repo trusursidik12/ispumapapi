@@ -135,7 +135,11 @@ class Aqmmaster_m extends CI_Model
 		return ["id_stasiun" => $id_stasiun,"closer" => $closer,"stasiuns" => [$result1,$result2,$result3,$result4]];
 	}
 
-	public function get_available_stasiuns(){
+	public function get_available_stasiuns($lat = "",$lng = ""){
+		if($lat != "" || $lng != ""){
+			$closer_stasiun_id = $this->get_closer_stasiun_id($lat,$lng)["id_stasiun"];
+			if($closer_stasiun_id != "") $this->db->order_by("id_stasiun = '".$closer_stasiun_id."' DESC, id_stasiun ASC"); 
+		}
 		$this->db->group_by('id_stasiun'); 
 		$query = $this->db->get('aqm_ispu');
 		return $query->result_array();
