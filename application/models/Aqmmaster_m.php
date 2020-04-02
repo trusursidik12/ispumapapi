@@ -132,7 +132,7 @@ class Aqmmaster_m extends CI_Model
 		$result4 = $this->db->get('aqm_stasiun')->row_array();
 		if(@$result4["jarak"] < $closer && isset($result4["id_stasiun"])){ $id_stasiun = $result4["id_stasiun"]; $closer = @$result4["jarak"]; }
 		
-		return [$id_stasiun,$closer,"data" => [$result1,$result2,$result3,$result4]];
+		return ["id_stasiun" => $id_stasiun,"closer" => $closer,"stasiuns" => [$result1,$result2,$result3,$result4]];
 	}
 
 	public function get_available_stasiuns(){

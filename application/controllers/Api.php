@@ -351,9 +351,17 @@ class Api extends RestController {
 		$lat = $this->get('lat');
 		$lng = $this->get('lng');
 		$data = $this->aqmmaster_m->get_closer_stasiun_id($lat,$lng);
-		echo "<pre>";
-		print_r($data);
-		echo "</pre>";
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
 	}
 	
 	public function aqmNews_get()
