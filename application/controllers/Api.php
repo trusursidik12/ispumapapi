@@ -151,6 +151,8 @@ class Api extends RestController {
 	public function aqmCitiesinfo_get(){
 		$lat = $this->get('lat');
 		$lng = $this->get('lng');
+		$limit = $this->get('limit');
+		$xx = 0;
 		if($lat == "" && $lng == ""){
 			$stasiuns = $this->aqmmaster_m->get_available_stasiuns();
 		} else {
@@ -199,6 +201,8 @@ class Api extends RestController {
 			'humidity'			=> round($last_aqm_data["humidity"],0),
 			'rain_rate'			=> round($last_aqm_data["rain_intensity"],1),
 			'solar_radiation'	=> round($last_aqm_data["sr"],0)];
+			$xx++;
+			if(@$limit > 0) if($xx >= @$limit) break;
 		}
 		
 		
