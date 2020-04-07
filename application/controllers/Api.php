@@ -375,6 +375,12 @@ class Api extends RestController {
 		}
 	}
 	
+	public function aqmAppsVersion_get(){
+		$this->response([
+				'status' 	=> true,
+				'version' 		=> "12"
+			], 200);
+	}
 	public function aqmNews_get()
 	{
 
