@@ -1,25 +1,22 @@
 <?php
 
-// use GuzzleHttp\Client;
+use GuzzleHttp\Client;
 
 class News_m extends CI_model
 {
 
-	/* private $_client;
+	private $_client;
 
 	public function __construct()
 	{
 		$this->_client 	= new Client([
 			'base_uri' 	=> 'http://ispumaps.id/ispumapapi/'
 		]);
-	} */
+	}
 
 	public function get_aqmnews()
 	{
-		$this->db->where('id', $id);
-		$this->db->delete('news');
-		return TRUE;
-		/* try
+		try
 		{
 			$response = $this->_client->request('GET', 'api/aqmnews', [
 				'query' => [
@@ -35,7 +32,7 @@ class News_m extends CI_model
 		{
 			$response = $e->getResponse();
 			$responseBodyAsString = $response->getBody()->getContents();
-		} */
+		}
 	}
 
 	// public function add_aqmnews()
