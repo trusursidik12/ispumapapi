@@ -159,54 +159,58 @@ class Api extends RestController {
 			$stasiuns = $this->aqmmaster_m->get_available_stasiuns($lat,$lng);
 		}
 		$id_stasiuns = [];
+		$content_exist = false;
 		
 		foreach($stasiuns as $stasiun){
 			$id_stasiuns[] = $stasiun["id_stasiun"];
 			$stasiun_info = $this->aqmmaster_m->get_stasiun_info($stasiun["id_stasiun"]);
-			$last_aqm_data = $this->aqmmaster_m->get_last_aqm_data($stasiun["id_stasiun"]);
-			$ispu = $this->aqmmaster_m->get_ispu([$stasiun["id_stasiun"]])[0];
-			
-			$worst_ispu = 0;
-			if($ispu["pm25"] < 500 && $worst_ispu < $ispu["pm25"]){ $worst_ispu = $ispu["pm25"];}
-			if($ispu["pm10"] < 500 && $worst_ispu < $ispu["pm10"]){ $worst_ispu = $ispu["pm10"];}
-			if($ispu["so2"] < 500 && $worst_ispu < $ispu["so2"]){ $worst_ispu = $ispu["so2"];}
-			if($ispu["co"] < 500 && $worst_ispu < $ispu["co"]){ $worst_ispu = $ispu["co"];}
-			if($ispu["o3"] < 500 && $worst_ispu < $ispu["o3"]){ $worst_ispu = $ispu["o3"];}
-			if($ispu["no2"] < 500 && $worst_ispu < $ispu["no2"]){ $worst_ispu = $ispu["no2"];}
-			
-			if($worst_ispu <= 50) $category = "BAIK";
-			else if($worst_ispu <= 100) $category = "SEDANG";
-			else if($worst_ispu <= 199) $category = "TIDAK SEHAT";
-			else if($worst_ispu <= 299) $category = "SANGAT TIDAK SEHAT";
-			else $category = "BERBAHAYA";
-			
-			$data[$stasiun["id_stasiun"]] = [
-			'status' 			=> true,
-			'request_id'		=> @$_GET["request_id"] * 1,
-			'id_stasiun'		=> $stasiun["id_stasiun"],
-			'category'			=> $category,
-			'stasiun_name'		=> $stasiun_info["nama"] . " - " . $stasiun_info["id_stasiun"],
-			'city'				=> $stasiun_info["kota"],
-			'province'			=> $stasiun_info["provinsi"],
-			'pm25'				=> $ispu["pm25"],
-			'pm10'				=> $ispu["pm10"],
-			'so2'				=> $ispu["so2"],
-			'co'				=> $ispu["co"],
-			'o3'				=> $ispu["o3"],
-			'no2'				=> $ispu["no2"],
-			'pressure'			=> round($last_aqm_data["pressure"],1),
-			'temperature'		=> round($last_aqm_data["temperature"],1),
-			'wind_direction'	=> round($last_aqm_data["wd"],0),
-			'wind_speed'		=> round($last_aqm_data["ws"],0),
-			'humidity'			=> round($last_aqm_data["humidity"],0),
-			'rain_rate'			=> round($last_aqm_data["rain_intensity"],1),
-			'solar_radiation'	=> round($last_aqm_data["sr"],0)];
-			$xx++;
-			if(@$limit > 0) if($xx >= @$limit) break;
+			if($stasiun_info["id"]){
+				$content_exist = true;
+				$last_aqm_data = $this->aqmmaster_m->get_last_aqm_data($stasiun["id_stasiun"]);
+				$ispu = @$this->aqmmaster_m->get_ispu([$stasiun["id_stasiun"]])[0];
+				
+				$worst_ispu = 0;
+				if($ispu["pm25"] < 500 && $worst_ispu < $ispu["pm25"]){ $worst_ispu = $ispu["pm25"];}
+				if($ispu["pm10"] < 500 && $worst_ispu < $ispu["pm10"]){ $worst_ispu = $ispu["pm10"];}
+				if($ispu["so2"] < 500 && $worst_ispu < $ispu["so2"]){ $worst_ispu = $ispu["so2"];}
+				if($ispu["co"] < 500 && $worst_ispu < $ispu["co"]){ $worst_ispu = $ispu["co"];}
+				if($ispu["o3"] < 500 && $worst_ispu < $ispu["o3"]){ $worst_ispu = $ispu["o3"];}
+				if($ispu["no2"] < 500 && $worst_ispu < $ispu["no2"]){ $worst_ispu = $ispu["no2"];}
+				
+				if($worst_ispu <= 50) $category = "BAIK";
+				else if($worst_ispu <= 100) $category = "SEDANG";
+				else if($worst_ispu <= 199) $category = "TIDAK SEHAT";
+				else if($worst_ispu <= 299) $category = "SANGAT TIDAK SEHAT";
+				else $category = "BERBAHAYA";
+				
+				$data[$stasiun["id_stasiun"]] = [
+				'status' 			=> true,
+				'request_id'		=> @$_GET["request_id"] * 1,
+				'id_stasiun'		=> $stasiun["id_stasiun"],
+				'category'			=> $category,
+				'stasiun_name'		=> $stasiun_info["nama"] . " - " . $stasiun_info["id_stasiun"],
+				'city'				=> $stasiun_info["kota"],
+				'province'			=> $stasiun_info["provinsi"],
+				'pm25'				=> $ispu["pm25"],
+				'pm10'				=> $ispu["pm10"],
+				'so2'				=> $ispu["so2"],
+				'co'				=> $ispu["co"],
+				'o3'				=> $ispu["o3"],
+				'no2'				=> $ispu["no2"],
+				'pressure'			=> round($last_aqm_data["pressure"],1),
+				'temperature'		=> round($last_aqm_data["temperature"],1),
+				'wind_direction'	=> round($last_aqm_data["wd"],0),
+				'wind_speed'		=> round($last_aqm_data["ws"],0),
+				'humidity'			=> round($last_aqm_data["humidity"],0),
+				'rain_rate'			=> round($last_aqm_data["rain_intensity"],1),
+				'solar_radiation'	=> round($last_aqm_data["sr"],0)];
+				$xx++;
+				if(@$limit > 0) if($xx >= @$limit) break;
+			}
 		}
 		
 		
-		if ($ispu) {
+		if ($content_exist) {
 			$this->response([
                     'status' 		=> true,
                     'id_stasiuns'	=> $id_stasiuns,
