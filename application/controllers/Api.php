@@ -162,9 +162,9 @@ class Api extends RestController {
 		$content_exist = false;
 		
 		foreach($stasiuns as $stasiun){
-			$id_stasiuns[] = $stasiun["id_stasiun"];
 			$stasiun_info = $this->aqmmaster_m->get_stasiun_info($stasiun["id_stasiun"]);
-			if($stasiun_info["id"]){
+			if($stasiun_info["id"] * 1 > 0){
+				$id_stasiuns[] = $stasiun["id_stasiun"];
 				$content_exist = true;
 				$last_aqm_data = $this->aqmmaster_m->get_last_aqm_data($stasiun["id_stasiun"]);
 				$ispu = @$this->aqmmaster_m->get_ispu([$stasiun["id_stasiun"]])[0];
