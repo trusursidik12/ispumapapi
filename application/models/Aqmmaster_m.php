@@ -53,7 +53,7 @@ class Aqmmaster_m extends CI_Model
 
 	public function get_ispu($id_stasiuns)
 	{
-		$waktu = $this->db->select('waktu')->order_by('waktu',"desc")->limit(1)->get('aqm_ispu')->row()->waktu;
+		$waktu = $this->db->select('waktu')->where_in('id_stasiun', $id_stasiuns)->order_by('waktu',"desc")->limit(1)->get('aqm_ispu')->row()->waktu;
 		$this->db->where_in('id_stasiun', $id_stasiuns);
 		$this->db->like('waktu', $waktu, 'after'); 
 		$query = $this->db->get("aqm_ispu");
