@@ -14,13 +14,14 @@ class News_m extends CI_model
 		]);
 	}
 
-	public function get_aqmnews()
+	public function get_aqmnews($keyword)
 	{
 		try
 		{
 			$response = $this->_client->request('GET', 'api/aqmnews', [
 				'query' => [
-					'trusur_api_key' => 'VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA=='
+					'trusur_api_key' => 'VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA==',
+					'k' => $keyword
 				],
 			]);
 
