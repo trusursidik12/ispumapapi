@@ -5,7 +5,8 @@ class Rssnews extends CI_Controller {
 
 	public function index()
 	{
-		$data['news'] 		= $this->news_m->get_aqmnews($_GET["keyword"]);
+		if(isset($_GET["keyword"])) $data['news'] 		= $this->news_m->get_aqmnews($_GET["keyword"]);
+		else $data['news'] 		= $this->news_m->get_aqmnews();
 		
 		$this->load->view('Rssnews_v', $data);
 	}
