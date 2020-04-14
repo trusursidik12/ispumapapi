@@ -14,7 +14,7 @@ class News_m extends CI_model
 		]);
 	}
 
-	public function get_aqmnews($keyword)
+	public function get_aqmnews($keyword = "")
 	{
 		try
 		{
