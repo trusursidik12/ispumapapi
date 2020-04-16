@@ -29,7 +29,7 @@
 					<img width="40" src="assets/icon/icon.png">
 				</div>
 				<div class="p-1">
-					<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+					<input class="form-control" type="search" placeholder="Search" name="keyword" id="keyword" aria-label="Search">
 				</div>
 				<div class="p-1">
 					<button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
