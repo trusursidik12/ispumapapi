@@ -11,7 +11,7 @@ class News_m extends CI_model
 			$this->db->like('title', $keyword);
 			$this->db->or_like('content', $keyword);
 		}
-		return $this->db->get('news', $limit, $start)->result_array();
+		return $this->db->get('news')->result_array();
 	}
 
 	// private $_client;
