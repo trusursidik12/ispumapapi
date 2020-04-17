@@ -4,16 +4,6 @@ use GuzzleHttp\Client;
 
 class News_m extends CI_model
 {
-
-	public function get_newssearch($keyword = null)
-	{
-		if($keyword){
-			$this->db->like('title', $keyword);
-			$this->db->or_like('content', $keyword);
-		}
-		return $this->db->get('news')->result_array();
-	}
-
 	private $_client;
 
 	public function __construct()

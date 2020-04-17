@@ -164,6 +164,17 @@ class Aqmmaster_m extends CI_Model
 		return $query->result_array();
 	}
 
+	public function get_newsslug($slug = FALSE)
+	{
+		if($slug === FALSE){
+			$this->db->order_by('id', 'DESC');
+			$query = $this->db->get('news');
+			return $query->result_array();
+		}
+		$query = $this->db->get_where('news', array('slug' => $slug));
+		return $query->row_array();
+	}
+
 	public function get_aqm_about($id = FALSE)
 	{
 		if($id === FALSE){

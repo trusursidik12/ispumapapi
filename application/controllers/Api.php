@@ -552,15 +552,15 @@ class Api extends RestController {
 		}
 	}
 
-	public function aqmNewsSearch_get()
+	public function aqmnewsslug_get()
 	{
 
-		$id = $this->get('title');
+		$id = $this->get('slug');
 
 		if ($id === null) {
-			$data = $this->news_m->get_newssearch();
+			$data = $this->home_m->get_newsslug();
 		} else {
-			$data = $this->news_m->get_newssearch($id);		
+			$data = $this->home_m->get_newsslug($id);		
 		}
 
 		if ($data) {
