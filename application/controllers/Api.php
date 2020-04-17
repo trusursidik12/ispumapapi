@@ -558,9 +558,9 @@ class Api extends RestController {
 		$id = $this->get('slug');
 
 		if ($id === null) {
-			$data = $this->home_m->get_newsslug();
+			$data = $this->aqmmaster_m->get_newsslug();
 		} else {
-			$data = $this->home_m->get_newsslug($id);		
+			$data = $this->aqmmaster_m->get_newsslug($id);		
 		}
 
 		if ($data) {
