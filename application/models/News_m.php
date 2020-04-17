@@ -5,36 +5,45 @@ use GuzzleHttp\Client;
 class News_m extends CI_model
 {
 
-	private $_client;
-
-	public function __construct()
+	public function get_newssearch($keyword = null)
 	{
-		$this->_client 	= new Client([
-			'base_uri' 	=> 'http://ispumaps.id/ispumapapi/'
-		]);
+		if($keyword){
+			$this->db->like('title', $keyword);
+			$this->db->or_like('content', $keyword);
+		}
+		return $this->db->get('news', $limit, $start)->result_array();
 	}
 
-	public function get_aqmnews($keyword = "")
-	{
-		try
-		{
-			$response = $this->_client->request('GET', 'api/aqmnews', [
-				'query' => [
-					'trusur_api_key' => 'VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA==',
-					'k' => $keyword
-				],
-			]);
+	// private $_client;
 
-			$result = json_decode($response->getBody()->getContents(), true);
+	// public function __construct()
+	// {
+	// 	$this->_client 	= new Client([
+	// 		'base_uri' 	=> 'http://ispumaps.id/ispumapapi/'
+	// 	]);
+	// }
 
-			return $result['data'];
-		}
-		catch (GuzzleHttp\Exception\ClientException $e)
-		{
-			$response = $e->getResponse();
-			$responseBodyAsString = $response->getBody()->getContents();
-		}
-	}
+	// public function get_aqmnews($keyword = "")
+	// {
+	// 	try
+	// 	{
+	// 		$response = $this->_client->request('GET', 'api/aqmnews', [
+	// 			'query' => [
+	// 				'trusur_api_key' => 'VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA==',
+	// 				'k' => $keyword
+	// 			],
+	// 		]);
+
+	// 		$result = json_decode($response->getBody()->getContents(), true);
+
+	// 		return $result['data'];
+	// 	}
+	// 	catch (GuzzleHttp\Exception\ClientException $e)
+	// 	{
+	// 		$response = $e->getResponse();
+	// 		$responseBodyAsString = $response->getBody()->getContents();
+	// 	}
+	// }
 
 	// public function add_aqmnews()
 	// {
