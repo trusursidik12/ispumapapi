@@ -16,6 +16,19 @@ class Aqmmaster_m extends CI_Model
 		return $query->row_array();
 	}
 
+	public function get_aqm_ispu_yesterday($id = FALSE)
+	{
+		if($id === FALSE){
+			$this->db->select('*');
+			$this->db->from('aqm_ispu');
+			$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+		$query = $this->db->get_where('aqm_ispu', array('id_stasiun' => $id));
+		return $query->row_array();
+	}
+
 	public function get_aqm_ispu($id = FALSE)
 	{
 		if($id === FALSE){
@@ -206,11 +219,29 @@ class Aqmmaster_m extends CI_Model
 		return $query->result_array();
 	}
 
+	public function get_aqm_rank_pm10_yesterday()
+	{
+		$this->db->select('pm10, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	public function get_aqm_rank_pm25()
 	{
 		$this->db->select('pm25, id_stasiun, waktu');
 		$this->db->from('aqm_ispu');
 		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function get_aqm_rank_pm25_yesterday()
+	{
+		$this->db->select('pm25, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -224,11 +255,29 @@ class Aqmmaster_m extends CI_Model
 		return $query->result_array();
 	}
 
+	public function get_aqm_rank_so2_yesterday()
+	{
+		$this->db->select('so2, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	public function get_aqm_rank_co()
 	{
 		$this->db->select('co, id_stasiun, waktu');
 		$this->db->from('aqm_ispu');
 		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function get_aqm_rank_co_yesterday()
+	{
+		$this->db->select('co, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -242,11 +291,29 @@ class Aqmmaster_m extends CI_Model
 		return $query->result_array();
 	}
 
+	public function get_aqm_rank_o3_yesterday()
+	{
+		$this->db->select('o3, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	public function get_aqm_rank_no2()
 	{
 		$this->db->select('no2, id_stasiun, waktu');
 		$this->db->from('aqm_ispu');
 		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function get_aqm_rank_no2_yesterday()
+	{
+		$this->db->select('no2, id_stasiun, waktu');
+		$this->db->from('aqm_ispu');
+		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}

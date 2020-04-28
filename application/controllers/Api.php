@@ -474,9 +474,43 @@ class Api extends RestController {
 		}
 	}
 
+	public function aqmRankPm10yesterday_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_pm10_yesterday();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
 	public function aqmRankPm25_get()
 	{
 		$data = $this->aqmmaster_m->get_aqm_rank_pm25();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmRankPm25yesterday_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_pm25_yesterday();
 
 		if ($data) {
 			$this->response([
@@ -508,9 +542,43 @@ class Api extends RestController {
 		}
 	}
 
+	public function aqmRankSo2yesterday_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_so2_yesterday();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
 	public function aqmRankCo_get()
 	{
 		$data = $this->aqmmaster_m->get_aqm_rank_co();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmRankCoyesterday_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_co_yesterday();
 
 		if ($data) {
 			$this->response([
@@ -542,9 +610,43 @@ class Api extends RestController {
 		}
 	}
 
+	public function aqmRanko3yesterday_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_o3_yesterday();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
 	public function aqmRankNo2_get()
 	{
 		$data = $this->aqmmaster_m->get_aqm_rank_no2();
+
+		if ($data) {
+			$this->response([
+                    'status' 	=> true,
+                    'data' 		=> $data
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+
+	public function aqmRankNo2yesterday_get()
+	{
+		$data = $this->aqmmaster_m->get_aqm_rank_no2_yesterday();
 
 		if ($data) {
 			$this->response([
