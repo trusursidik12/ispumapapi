@@ -21,7 +21,7 @@ class Aqmmaster_m extends CI_Model
 		if($id === FALSE){
 			$this->db->select('*');
 			$this->db->from('aqm_ispu');
-			$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+			$this->db->where('waktu IN (select max(waktu) from aqm_ispu where waktu < (select max(waktu) from aqm_ispu) group by id_stasiun)');
 			$query = $this->db->get();
 			return $query->result_array();
 		}
@@ -223,7 +223,7 @@ class Aqmmaster_m extends CI_Model
 	{
 		$this->db->select('pm10, id_stasiun, waktu');
 		$this->db->from('aqm_ispu');
-		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+		$this->db->where('waktu IN (select max(waktu) from aqm_ispu where waktu < (select max(waktu) from aqm_ispu) group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -241,7 +241,7 @@ class Aqmmaster_m extends CI_Model
 	{
 		$this->db->select('pm25, id_stasiun, waktu');
 		$this->db->from('aqm_ispu');
-		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+		$this->db->where('waktu IN (select max(waktu) from aqm_ispu where waktu < (select max(waktu) from aqm_ispu) group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -259,7 +259,7 @@ class Aqmmaster_m extends CI_Model
 	{
 		$this->db->select('so2, id_stasiun, waktu');
 		$this->db->from('aqm_ispu');
-		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+		$this->db->where('waktu IN (select max(waktu) from aqm_ispu where waktu < (select max(waktu) from aqm_ispu) group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -277,7 +277,7 @@ class Aqmmaster_m extends CI_Model
 	{
 		$this->db->select('co, id_stasiun, waktu');
 		$this->db->from('aqm_ispu');
-		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+		$this->db->where('waktu IN (select max(waktu) from aqm_ispu where waktu < (select max(waktu) from aqm_ispu) group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -295,7 +295,7 @@ class Aqmmaster_m extends CI_Model
 	{
 		$this->db->select('o3, id_stasiun, waktu');
 		$this->db->from('aqm_ispu');
-		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+		$this->db->where('waktu IN (select max(waktu) from aqm_ispu where waktu < (select max(waktu) from aqm_ispu) group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -313,7 +313,7 @@ class Aqmmaster_m extends CI_Model
 	{
 		$this->db->select('no2, id_stasiun, waktu');
 		$this->db->from('aqm_ispu');
-		$this->db->where('id IN (select max(id) from aqm_ispu where waktu < CURRENT_DATE() group by id_stasiun)');
+		$this->db->where('waktu IN (select max(waktu) from aqm_ispu where waktu < (select max(waktu) from aqm_ispu) group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
