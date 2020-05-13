@@ -3,6 +3,7 @@ use chriskacerguis\RestServer\RestController;
 defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . 'libraries/RestController.php';
 require APPPATH . 'libraries/Format.php';
+date_default_timezone_set("Asia/Jakarta");
 
 class Api extends RestController {
 
