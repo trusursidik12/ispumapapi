@@ -332,6 +332,40 @@ class Api extends RestController {
 		}
 	}
 	
+	public function aqmEffectByStasiun_get(){
+		$id_stasiun = $this->get('id_stasiun');
+		$ispu = $this->aqmmaster_m->get_ispu([$id_stasiun])[0];
+		if($ispu){
+			$worst_ispu = 0;
+			$worst_param = "";
+			if($ispu["pm25"] < 500 && $worst_ispu < $ispu["pm25"]){ $worst_ispu = $ispu["pm25"]; $worst_param = "pm25";}
+			if($ispu["pm10"] < 500 && $worst_ispu < $ispu["pm10"]){ $worst_ispu = $ispu["pm10"]; $worst_param = "pm10";}
+			if($ispu["so2"] < 500 && $worst_ispu < $ispu["so2"]){ $worst_ispu = $ispu["so2"]; $worst_param = "so2";}
+			if($ispu["co"] < 500 && $worst_ispu < $ispu["co"]){ $worst_ispu = $ispu["co"]; $worst_param = "co";}
+			if($ispu["o3"] < 500 && $worst_ispu < $ispu["o3"]){ $worst_ispu = $ispu["o3"]; $worst_param = "o3";}
+			if($ispu["no2"] < 500 && $worst_ispu < $ispu["no2"]){ $worst_ispu = $ispu["no2"]; $worst_param = "no2";}
+			$effect = $this->aqmmaster_m->get_effect($worst_ispu,$worst_param);
+			$this->response([
+                    'status' 			=> true,
+                    'request_id'		=> @$_GET["request_id"] * 1,
+                    'worst_ispu'		=> $worst_ispu,
+                    'worst_param'		=> $worst_param,
+                    'effect'			=> $effect,
+					'pm25'				=> $ispu["pm25"],
+					'pm10'				=> $ispu["pm10"],
+					'so2'				=> $ispu["so2"],
+					'co'				=> $ispu["co"],
+					'o3'				=> $ispu["o3"],
+					'no2'				=> $ispu["no2"]
+                ], 200);
+		} else {
+			$this->response([
+                    'status' 	=> false,
+                    'message' 	=> 'Data Tidak Ditemukan'
+                ], 404);
+		}
+	}
+	
 	public function aqmOutdoor_get(){
 		$id_stasiun = $this->get('id_stasiun');
 		$stasiun_info = $this->aqmmaster_m->get_stasiun_info($id_stasiun);
