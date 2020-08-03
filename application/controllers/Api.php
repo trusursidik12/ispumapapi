@@ -394,6 +394,7 @@ class Api extends RestController {
 					'co_val'			=> $last_aqm_data["co"],
 					'o3_val'			=> $last_aqm_data["o3"],
 					'no2_val'			=> $last_aqm_data["no2"],
+					'hc_val'			=> $last_aqm_data["hc"],
 					'pressure'			=> round($last_aqm_data["pressure"],1),
 					'temperature'		=> round($last_aqm_data["temperature"],1),
 					'wind_direction'	=> round($last_aqm_data["wd"],0),
