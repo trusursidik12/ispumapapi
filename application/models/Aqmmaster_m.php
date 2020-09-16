@@ -21,7 +21,7 @@ class Aqmmaster_m extends CI_Model
 		if ($id === FALSE) {
 			$this->db->select('*');
 			$this->db->from('aqm_ispu');
-			$this->db->where('waktu IN (select max(waktu) from aqm_ispu where waktu < (select max(waktu) from aqm_ispu) AND id_stasiun NOT LIKE \'KLHK-%\' group by id_stasiun)');
+			$this->db->where('waktu IN (select max(waktu) from aqm_ispu where waktu < (select max(waktu) from aqm_ispu) group by id_stasiun)');
 			$query = $this->db->get();
 			return $query->result_array();
 		}
@@ -45,7 +45,7 @@ class Aqmmaster_m extends CI_Model
 	public function get_aqm_ispu_all()
 	{
 		$this->db->from('aqm_ispu');
-		$this->db->where('id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$this->db->where('id_stasiun NOT LIKE \"KLHK-%\" AND id IN (select max(id) from aqm_ispu group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
