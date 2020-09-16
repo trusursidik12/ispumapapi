@@ -45,7 +45,7 @@ class Aqmmaster_m extends CI_Model
 	public function get_aqm_ispu_all()
 	{
 		$this->db->from('aqm_ispu');
-		$this->db->where('id_stasiun NOT LIKE \'KLHK-%\' AND id IN (select max(id) from aqm_ispu group by id_stasiun)');
+		$this->db->where('id_stasiun IN (SELECT id_stasiun FROM aqm_stasiun WHERE calculate_ispu = 1) AND id IN (select max(id) from aqm_ispu group by id_stasiun)');
 		$query = $this->db->get();
 		return $query->result_array();
 	}
