@@ -15,8 +15,7 @@ class News_m extends CI_model
 
 	public function get_aqmnews($keyword = "")
 	{
-		try
-		{
+		try {
 			$response = $this->_client->request('GET', 'api/aqmnews', [
 				'query' => [
 					'trusur_api_key' => 'VHJ1c3VyVW5nZ3VsVGVrbnVzYV9wVA==',
@@ -27,9 +26,7 @@ class News_m extends CI_model
 			$result = json_decode($response->getBody()->getContents(), true);
 
 			return $result['data'];
-		}
-		catch (GuzzleHttp\Exception\ClientException $e)
-		{
+		} catch (GuzzleHttp\Exception\ClientException $e) {
 			$response = $e->getResponse();
 			$responseBodyAsString = $response->getBody()->getContents();
 		}

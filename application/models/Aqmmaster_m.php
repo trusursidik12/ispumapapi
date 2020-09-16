@@ -205,6 +205,14 @@ class Aqmmaster_m extends CI_Model
 		return $query->result_array();
 	}
 
+	public function get_aqm_news_top($limit)
+	{
+		$this->db->order_by('created_at', 'DESC');
+		$this->db->limit($limit);
+		$query = $this->db->get('news');
+		return $query->result_array();
+	}
+
 	public function get_newsslug($slug = FALSE)
 	{
 		if ($slug === FALSE) {

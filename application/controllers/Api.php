@@ -608,10 +608,29 @@ class Api extends RestController
 			'version' 		=> "12"
 		], 200);
 	}
+
 	public function aqmNews_get()
 	{
 		$keyword = $this->get('k');
 		$data = $this->aqmmaster_m->get_aqm_news($keyword);
+		if ($data) {
+			$this->response([
+				'status' 	=> true,
+				'data' 		=> $data
+			], 200);
+		} else {
+			$this->response([
+				'status' 	=> false,
+				'message' 	=> 'Data Tidak Ditemukan'
+			], 404);
+		}
+	}
+
+	public function aqmNewsTop_get()
+	{
+		$limit = @$this->get('limit');
+		if (!$limit) $limit = 6;
+		$data = $this->aqmmaster_m->get_aqm_news_top($limit);
 		if ($data) {
 			$this->response([
 				'status' 	=> true,
