@@ -353,4 +353,13 @@ class Aqmmaster_m extends CI_Model
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+
+	public function get_winds($id_stasiun, $speed, $speed2)
+	{
+		$this->db->where(["id_stasiun" => $id_stasiun]);
+		$this->db->where("ws >= '" . $speed . "' AND ws < '" . $speed2 . "'");
+		$this->db->where("waktu BETWEEN '" . date("Y-m-d", strtotime("-1 month")) . "' AND '" . date("Y-m-d") . "'");
+		$query = $this->db->get('aqm_data');
+		return $query->result_array();
+	}
 }

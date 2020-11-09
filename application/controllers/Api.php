@@ -919,4 +919,68 @@ class Api extends RestController
 			], 404);
 		}
 	}
+
+	public function aqmWindroseById_get()
+	{
+		$speeds[] = 0;
+		$speeds[] = 3;
+		$speeds[] = 6;
+		$speeds[] = 10;
+		foreach ($speeds as $key => $speed) {
+			$data[$key][0] = 0;
+			$data[$key][1] = 0;
+			$data[$key][2] = 0;
+			$data[$key][3] = 0;
+			$data[$key][4] = 0;
+			$data[$key][5] = 0;
+			$data[$key][6] = 0;
+			$data[$key][7] = 0;
+			if (isset($speed[$key + 1])) $speed2 = $speed[$key + 1];
+			else $speed2 = 99999999999999;
+			$winds = $this->aqmmaster_m->get_winds($this->get('id_stasiun'), $speed, $speed2);
+			foreach ($winds as $wind) {
+				if (($wind["wd"] > 337.5 && $wind["wd"] <= 360) || ($wind["wd"] >= 0  && $wind["wd"] <= 22.5))
+					$data[$key][0]++;
+				if ($wind["wd"] > 22.5 && $wind["wd"] <= 67.5)
+					$data[$key][1]++;
+				if ($wind["wd"] > 67.5 && $wind["wd"] <= 112.5)
+					$data[$key][2]++;
+				if ($wind["wd"] > 112.5 && $wind["wd"] <= 157.5)
+					$data[$key][3]++;
+				if ($wind["wd"] > 157.5 && $wind["wd"] <= 202.5)
+					$data[$key][4]++;
+				if ($wind["wd"] > 202.5 && $wind["wd"] <= 247.5)
+					$data[$key][5]++;
+				if ($wind["wd"] > 247.5 && $wind["wd"] <= 292.5)
+					$data[$key][6]++;
+				if ($wind["wd"] > 292.5 && $wind["wd"] <= 337.5)
+					$data[$key][7]++;
+			}
+		}
+		$grandtotal = 0;
+		foreach ($data as $key => $_data) {
+			$total[$key] = 0;
+			foreach ($_data as $__data) {
+				$total[$key] += $__data;
+				$grandtotal += $__data;
+			}
+		}
+
+		foreach ($data as $key => $_data) {
+			foreach ($_data as $key2 => $__data) {
+				$percentage[$key][$key2] = number_format($__data / $grandtotal * 100, 2) * 1;
+			}
+		}
+		if (count($percentage)) {
+			$this->response([
+				'status'	=> true,
+				'data'		=> $percentage
+			], 200);
+		} else {
+			$this->response([
+				'status' 	=> false,
+				'message' 	=> 'Data Tidak Ditemukan'
+			], 404);
+		}
+	}
 }
