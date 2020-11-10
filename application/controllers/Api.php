@@ -935,26 +935,50 @@ class Api extends RestController
 			$data[$key][5] = 0;
 			$data[$key][6] = 0;
 			$data[$key][7] = 0;
+			$data[$key][8] = 0;
+			$data[$key][9] = 0;
+			$data[$key][10] = 0;
+			$data[$key][11] = 0;
+			$data[$key][12] = 0;
+			$data[$key][13] = 0;
+			$data[$key][14] = 0;
+			$data[$key][15] = 0;
 			if (isset($speed[$key + 1])) $speed2 = $speed[$key + 1];
 			else $speed2 = 99999999999999;
 			$winds = $this->aqmmaster_m->get_winds($this->get('id_stasiun'), $speed, $speed2);
 			foreach ($winds as $wind) {
-				if (($wind["wd"] > 337.5 && $wind["wd"] <= 360) || ($wind["wd"] >= 0  && $wind["wd"] <= 22.5))
+				if ($wind["wd"] >= 0  && $wind["wd"] <= 22.5 || $wind["wd"] == 360)
 					$data[$key][0]++;
-				if ($wind["wd"] > 22.5 && $wind["wd"] <= 67.5)
+				if ($wind["wd"] > 22.5 && $wind["wd"] <= 45)
 					$data[$key][1]++;
-				if ($wind["wd"] > 67.5 && $wind["wd"] <= 112.5)
+				if ($wind["wd"] > 45 && $wind["wd"] <= 67.5)
 					$data[$key][2]++;
-				if ($wind["wd"] > 112.5 && $wind["wd"] <= 157.5)
+				if ($wind["wd"] > 67.5 && $wind["wd"] <= 90)
 					$data[$key][3]++;
-				if ($wind["wd"] > 157.5 && $wind["wd"] <= 202.5)
+				if ($wind["wd"] > 90 && $wind["wd"] <= 112.5)
 					$data[$key][4]++;
-				if ($wind["wd"] > 202.5 && $wind["wd"] <= 247.5)
+				if ($wind["wd"] > 112.5 && $wind["wd"] <= 135)
 					$data[$key][5]++;
-				if ($wind["wd"] > 247.5 && $wind["wd"] <= 292.5)
+				if ($wind["wd"] > 135 && $wind["wd"] <= 157.5)
 					$data[$key][6]++;
-				if ($wind["wd"] > 292.5 && $wind["wd"] <= 337.5)
+				if ($wind["wd"] > 157.5 && $wind["wd"] <= 180)
 					$data[$key][7]++;
+				if ($wind["wd"] > 180 && $wind["wd"] <= 202.5)
+					$data[$key][8]++;
+				if ($wind["wd"] > 202.5 && $wind["wd"] <= 225)
+					$data[$key][9]++;
+				if ($wind["wd"] > 225 && $wind["wd"] <= 247.5)
+					$data[$key][10]++;
+				if ($wind["wd"] > 247.5 && $wind["wd"] <= 270)
+					$data[$key][11]++;
+				if ($wind["wd"] > 270 && $wind["wd"] <= 292.5)
+					$data[$key][12]++;
+				if ($wind["wd"] > 292.5 && $wind["wd"] <= 315)
+					$data[$key][13]++;
+				if ($wind["wd"] > 315 && $wind["wd"] <= 337.5)
+					$data[$key][14]++;
+				if ($wind["wd"] > 337.5 && $wind["wd"] < 360)
+					$data[$key][15]++;
 			}
 		}
 		$grandtotal = 0;
