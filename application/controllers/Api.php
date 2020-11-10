@@ -989,13 +989,13 @@ class Api extends RestController
 				$grandtotal += $__data;
 			}
 		}
-
-		foreach ($data as $key => $_data) {
-			foreach ($_data as $key2 => $__data) {
-				$percentage[$key][$key2] = number_format($__data / $grandtotal * 100, 2) * 1;
+		if ($grandtotal > 0) {
+			foreach ($data as $key => $_data) {
+				foreach ($_data as $key2 => $__data) {
+					$percentage[$key][$key2] = number_format($__data / $grandtotal * 100, 2) * 1;
+				}
 			}
-		}
-		if (count($percentage)) {
+
 			$this->response([
 				'status'	=> true,
 				'data'		=> $percentage
@@ -1003,6 +1003,7 @@ class Api extends RestController
 		} else {
 			$this->response([
 				'status' 	=> false,
+				'data'		=> [],
 				'message' 	=> 'Data Tidak Ditemukan'
 			], 404);
 		}
